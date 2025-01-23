@@ -39,12 +39,27 @@ int addItem(int val){
     queue.array[queue.last] = val;
 }
 
-void removeItem(int val){
+void removeItem(){
+    // Verificar se o vetor já está vazio.
+    if(queue.front == -1){
+        printf("Array is empty");
+    }
 
+    // remover elemento dentro do vetor.
+    // ajustar posição: (queue.front + 1) % SIZE;
+    queue.array[queue.front] = -1;
+
+    if(queue.front == queue.last){
+        queue.front = -1;
+        queue.last = -1;
+    }else{
+        queue.front = (queue.front + 1) % SIZE;
+    }
 }
 
 int main(int argc, char *argv[]){
     // inicio do código
+    initQueue();
 
     printf("Input numbers:\n");
     for(int i = 0;i < SIZE; i++){
@@ -55,5 +70,17 @@ int main(int argc, char *argv[]){
     for(int i = 0;i < SIZE;i++){
         printf("values: %d\n",queue.array[i]);
     }
+    
+    // Saida: [-1,-1,-1,-1,-1]. Isso significa que o vetor está vázio.
+    for(int i = 0;i < SIZE;i++){
+        removeItem();
+    }
+    
+    printf("\n");
+    for(int i = 0; i < SIZE; i++){
+        printf("values after remove: %d\n",queue.array[i]);
+    }
+    
+
     return 0;
 }
