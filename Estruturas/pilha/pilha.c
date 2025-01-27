@@ -14,12 +14,12 @@ Stack* createStack(int capacity){
 
 // verificar se está vazia
 bool isEmpty(Stack* stack){
-
+    return stack->top == -1;
 }
 
 // verificar se está cheia
 bool isFull(Stack* stack){
-    
+
 }
 
 // libera a memória da pilha
@@ -31,8 +31,9 @@ void freeStack(Stack* stack){
 void push(Stack* stack, int element){
     // Verificando se a pilha está cheia
     if(isFull(stack)){
-        return printf("Stack is full, try remove at least one element!");
+        printf("\nStack is full, try remove at least one element!\n");
     }
+    stack->top += 1;
     stack->array[stack->top] = element;
 }
 
@@ -40,14 +41,18 @@ void push(Stack* stack, int element){
 int pop(Stack* stack){
     // Verificando se a pilha está vazia.
     if(isEmpty(stack)){
-        return printf("Stack it's empty!");
+        return printf("\nStack it's empty!\n");
     }
     return stack->array[stack->top] -= stack->top;
 }
 
 // Mostra o elemento no topo da pilha
 int peek(Stack* stack){
-
+    // Verificando se tem algo para ver
+    if(isEmpty(stack)){
+        return printf("\nStack is empty, there's nothing to see\n");
+    }
+    return stack->array[stack->top];
 }
 
 // tamanho da pilha
