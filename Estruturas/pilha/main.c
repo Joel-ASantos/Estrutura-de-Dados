@@ -13,23 +13,28 @@ dado mais recente é acessível.
 */
 
 /*
-    Retornou o valor correto agora
-
-    O problema estava na linha 36 do pilha.c
-    faltou eu incrementar para dar o indece correto no array.
+    Retorno valor errado no "peek" antes do "pop".
+    Era esperado o valor 3, mas retornou um número quebrado.
 */
 
 int main(int argc, char *argv[]){
-    // Teste 03
+    // Teste 04
     // criando uma pilha
     Stack* stack = createStack(5);
     
     // Adicionando valores na pilha
     push(stack,1);
     push(stack,2);
-    push(stack,3); // Esse é o valor esperado
+    push(stack,3);
 
     // Vendo o topo da pilha
-    printf("\nElemento no topo: %d",peek(stack));
+    printf("\nStack Size before pop: %d",size(stack));
+    printf("\nPeek element before pop: %d",peek(stack));
+    printf("\nRemoved Element: %d",pop(stack));
+    printf("\nPeek element after pop: %d",peek(stack));
+    printf("\nStack Size: %d",size(stack));
+
+    // Liberar memória da pilha
+    freeStack(stack);
     return 0;
 }
