@@ -12,15 +12,10 @@ são empilhados em cima uns dos outros, de maneira que somente o
 dado mais recente é acessível.
 */
 
-/*
-    Retorno valor errado no "peek" antes do "pop".
-    Era esperado o valor 3, mas retornou um número quebrado.
-*/
-
 int main(int argc, char *argv[]){
-    // Teste 04
+    // Teste 06
     // criando uma pilha
-    Stack* stack = createStack(5);
+    Stack* stack = createStack(3);
     
     // Adicionando valores na pilha
     push(stack,1);

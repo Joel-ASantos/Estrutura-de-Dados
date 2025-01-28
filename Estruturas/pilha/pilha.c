@@ -7,7 +7,7 @@
 Stack* createStack(int capacity){
     Stack* stack = (Stack*)malloc(sizeof(Stack));
     stack->capacity = capacity;
-    stack->array = (int*)malloc(sizeof(capacity*sizeof(int)));
+    stack->array = (int*)malloc(capacity*sizeof(int));
     stack->top = -1;
     return stack;
 }
