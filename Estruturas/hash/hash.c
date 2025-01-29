@@ -21,6 +21,7 @@ int insertElement(Hash_Table* table, int key, const char* object){
     }
 
     insert_Hash->key = key;
+    insert_Hash->object = strdup(object);
     table->bucket[index] = insert_Hash;
     return -1;
 }
@@ -47,4 +48,14 @@ void removeElement(Hash_Table* table, int key){
 
 void freeMemory(Hash_Table* table){
 
+}
+
+void printHashTABLE(Hash_Table* table){
+    for(int i = 0; i < HASH_SIZE; i++){
+        if(table->bucket[i] != NULL){
+            printf("\nBucket: Chave= %d Valor= %s",table->bucket[i]->key,table->bucket[i]->object);
+        }else{
+            printf("\nBucket vazio");
+        }
+    }
 }
