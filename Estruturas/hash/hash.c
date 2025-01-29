@@ -21,7 +21,7 @@ int insertElement(Hash_Table* table, int key, const char* object){
     }
 
     insert_Hash->key = key;
-    table->bucket[insert_Hash->key] = insert_Hash->object;
+    table->bucket[index] = insert_Hash;
     return -1;
 }
 
