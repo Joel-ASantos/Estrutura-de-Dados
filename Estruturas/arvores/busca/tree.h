@@ -4,6 +4,7 @@
 
 typedef struct Node{
     int value;
+    struct Node* head;
     struct Node* right;
     struct Node* left;
 }Node;
