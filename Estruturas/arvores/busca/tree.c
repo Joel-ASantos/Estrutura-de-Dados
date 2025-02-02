@@ -10,11 +10,20 @@ Node* createNodes(int value){
     no->right = NULL;
     no->left = NULL;
     no->value = value;
+    return no;
 }
 
 // Função para encontrar um valor especifico na árvore
 Node* find(Node* root, int value){
-    if(root == NULL || root->value == value) return root;
+    if(root == NULL){
+        printf("Value does not exist in tree");
+        return NULL;
+    }
+
+    if(root->value == value){
+        printf("\nValue found: %d",root->value);
+        return root;
+    }
 
     if(value < root->value){
         return find(root->left,value);
@@ -40,7 +49,9 @@ void insert(Node** root, int value){
 
     // No entanto, preciso verificar se existe uma raíz para iniciar o processo
     // Caso não exista a cabeça ou "raíz" vai ser receber um valo.
-    if(*root == NULL) *root = createNodes(value);
+    if(*root == NULL){
+        *root = createNodes(value);
+    } 
 
     // Começar o processo de alocar o valor com no seu devido lugar
     if(value < (*root)->value){
@@ -59,7 +70,10 @@ Node* delete(Node* root, int value){
     // Se for somente os filhos a serem removidos, a estrutura da árvore permanece.
     
     // Verifica se a árvore já está vazia
-    if(root == NULL) printf("\nRoot is empty"); return root;
+    if(root == NULL){
+        printf("\nRoot is empty"); 
+        return root;
+    } 
 
     // Processo de remoção dos filhos
     // Casos a se considerar:
@@ -75,11 +89,11 @@ Node* delete(Node* root, int value){
         if(root->left == NULL){
             Node* temp = root->right;
             free(root);
-            return temp->right;
+            return temp;
         }else if(root->right == NULL){
             Node* temp = root->left;
             free(root);
-            return temp->left;
+            return temp;
         }
 
         // Caso o nó só possui dois filhos
@@ -92,9 +106,9 @@ Node* delete(Node* root, int value){
 
 // Função para imprimir à árvore
 void printfTree(Node* root){
-    while (root != NULL){
+    if (root != NULL){
         printfTree(root->left);
-        printf("%d", root->value);
+        printf("\t%d", root->value);
         printfTree(root->right);
     }
 }

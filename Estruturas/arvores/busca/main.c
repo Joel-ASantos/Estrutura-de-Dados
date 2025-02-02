@@ -28,8 +28,15 @@ int main(int* argc, char argv[]){
     insert(&root, 45);
 
     // Imprimindo os valores da árvore
-    printf("Tree:");
+    printf("Tree Before remove:");
     printfTree(root);
 
+    // Removendo elemento da árvore
+    delete(root,100);
+    printf("\nTree after remove");
+    printfTree(root);
+
+    // Encontrando um elemento
+    find(root,89);
     return 0;
 }
