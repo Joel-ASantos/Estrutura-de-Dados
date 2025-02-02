@@ -16,12 +16,23 @@ Node* createNodes(int value){
 // Função para encontrar um valor especifico na árvore
 Node* find(Node* root, int value){
     if(root == NULL || root->value == value) return root;
-    
+
     if(value < root->value){
         return find(root->left,value);
     }else if(value > root->value){
         return find(root->right,value);
     }
+}
+
+// Função para encontrar o menor valor da árvore do lado direito
+Node* find_Min_Value_IN_right_subtree(Node* root){
+    // Preciso percorrer todo o lado direito e encontrar o menor valor.
+    // Como o nó direito é o maior, dentro do nó direito, vou procurar todos
+    // os elementos do lado esquerdo até encontrar o menor.
+    while(root->left != NULL){
+        root = root->left;
+    }
+    return root;
 }
 
 // Função para inserção de valores para à árvore
@@ -48,24 +59,25 @@ void insert(Node* root, int value){
 }
 
 // Função para deletar um elemento na árvore
-void delete(Node* root, int value){
+Node* delete(Node* root, int value){
     // Deletando valores
 
     // Alguns casos a se considerar, caso o eu remover um elemento
-    // que é pai de um "filho", a estrutura da árvore muda.
+    // que é pai de um "filho", a estrutura da árvore muda
     // Se for somente os filhos a serem removidos, a estrutura da árvore permanece.
     
     // Verifica se a árvore já está vazia
     if(root == NULL) printf("\nRoot is empty");
 
     // Processo de remoção dos filhos
-    if(root->head != NULL && root->head == value){ // Encontrar o menor nó dentro do lado direito para substituir o head
-
-    }
-    else if(root->left != NULL && root->left == value){
-
-    }else if(root->right != NULL && root->right == value){
-
+    // Casos a se considerar:
+    // Caso 01: O nó só possui dois filhos
+    // Caso 02: O nó só possui um filho
+    // Caso 03: O nó não possui filho(s)
+    if(value < root->value){
+        root->left = delete(root->left,value);
+    }else if(value > root->value){
+        root->right = delete(root->right,value);
     }
 }
 
