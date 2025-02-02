@@ -7,7 +7,6 @@
 // Criação dos nós da árvore
 Node* createNodes(int value){
     Node* no = (Node*)malloc(sizeof(Node));
-    no->head = NULL;
     no->right = NULL;
     no->left = NULL;
     no->value = value;
@@ -36,25 +35,18 @@ Node* find_Min_Value_IN_right_subtree(Node* root){
 }
 
 // Função para inserção de valores para à árvore
-void insert(Node* root, int value){
+void insert(Node** root, int value){
     // Inserindo valores
 
     // No entanto, preciso verificar se existe uma raíz para iniciar o processo
     // Caso não exista a cabeça ou "raíz" vai ser receber um valo.
-    if(root->head == NULL) root->head = value;
+    if(*root == NULL) *root = createNodes(value);
 
     // Começar o processo de alocar o valor com no seu devido lugar
-    /*
-        if(root->left == NULL && value < root->head){
-            root->left = value;
-        }else if(root->right == NULL && value > root->head){
-            root->right = value;
-        }
-    */
-    if(root->left == NULL && value < root->head){
-        insert(&(root->left),value);
-    }else if(root->right == NULL && value > root->head){
-        insert(&(root->right),value);
+    if(value < (*root)->value){
+        insert(&((*root)->left),value);
+    }else if(value > (*root)->value){
+        insert(&((*root)->right),value);
     }
 }
 
@@ -67,7 +59,7 @@ Node* delete(Node* root, int value){
     // Se for somente os filhos a serem removidos, a estrutura da árvore permanece.
     
     // Verifica se a árvore já está vazia
-    if(root == NULL) printf("\nRoot is empty");
+    if(root == NULL) printf("\nRoot is empty"); return root;
 
     // Processo de remoção dos filhos
     // Casos a se considerar:
@@ -78,10 +70,31 @@ Node* delete(Node* root, int value){
         root->left = delete(root->left,value);
     }else if(value > root->value){
         root->right = delete(root->right,value);
+    }else{
+        // Caso o nó não possui filhos ou um único filho:
+        if(root->left == NULL){
+            Node* temp = root->right;
+            free(root);
+            return temp->right;
+        }else if(root->right == NULL){
+            Node* temp = root->left;
+            free(root);
+            return temp->left;
+        }
+
+        // Caso o nó só possui dois filhos
+        Node* temp = find_Min_Value_IN_right_subtree(root->right);
+        root->value = temp->value;
+        root->right = delete(root->right,temp->value);
     }
+    return root;
 }
 
 // Função para imprimir à árvore
 void printfTree(Node* root){
-
+    while (root != NULL){
+        printfTree(root->left);
+        printf("%d", root->value);
+        printfTree(root->right);
+    }
 }
