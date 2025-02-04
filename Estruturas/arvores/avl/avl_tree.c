@@ -11,6 +11,7 @@
 Node* createNode(int value){
     Node* no = (Node*)malloc(sizeof(Node));
     no->value = value;
+    no->height = NULL;
     no->right = NULL;
     no->left = NULL;
     return no;
@@ -21,17 +22,55 @@ Node* deleteElement(Node* root,int value){
 
 }
 
-// Encontrar um elemento na árvore
+// Função para encontrar um elemento na árvore
 Node* findElement(Node* root,int value){
+
+}
+
+// Função para atualizar a altura da árvore
+void updateHeight(Node* root){
+
+}
+
+// Função que vai balancear a árvore
+Node* balanceTree(Node* root){
+
+}
+
+// Função para fazer a rotação para direita
+Node* rotateRight(Node* root){
+
+}
+
+// Função para fazer a rotação para esquerda
+Node* rotateLeft(Node* root){
 
 }
 
 // Função que vai inserir elemento na árvore
 void insertElement(Node** root,int value){
-
+    // Questões a se considerar:
+    // Preciso implementar nesta função algum meio de
+    // auto-balancear a árvore, o que deve tornar essa função
+    // mais complexa do que a BST.
+    
+    // Adicionando o primeiro valor, que vai ser a raiz
+    if(*root == NULL){
+        *root = createNode(value);
+    }
+    // Fazendo o insert
+    if(value > (*root)->value){
+        insertElement(&((*root)->right),value);
+    }else if(value < (*root)->value){
+        insertElement(&((*root)->left),value);
+    }
 }
 
 // Função que vai imprimir a árvore
 void printALV_Tree(Node* root){
-
+    if(root != NULL){
+        printf("%d\t", root->right);
+        printALV_Tree(root);
+        printf("%d \t",root->left);
+    }
 }
