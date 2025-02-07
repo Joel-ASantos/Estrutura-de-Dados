@@ -17,24 +17,82 @@ Node* createNode(int value){
     return no;
 }
 
+Node* find_Min_Value_IN_right_subtree(Node* root){
+    while(root->left != NULL){
+        root = root->left;
+    }
+    return root;
+}
+
 // Função que vai deletar um elemento
 Node* deleteElement(Node* root,int value){
+    if(root == NULL){
+        printf("\nRoot is empty"); 
+        return root;
+    } 
 
+    if(value < root->value){
+        root->left = delete(root->left,value);
+    }else if(value > root->value){
+        root->right = delete(root->right,value);
+    }else{
+        // Caso o nó não possui filhos ou um único filho:
+        if(root->left == NULL){
+            Node* temp = root->right;
+            free(root);
+            return temp;
+        }else if(root->right == NULL){
+            Node* temp = root->left;
+            free(root);
+            return temp;
+        }
+
+        // Caso o nó só possui dois filhos
+        Node* temp = find_Min_Value_IN_right_subtree(root->right);
+        root->value = temp->value;
+        root->right = delete(root->right,temp->value);
+    }
+    return root;
 }
 
 // Função para encontrar um elemento na árvore
 Node* findElement(Node* root,int value){
-
+    if(root == NULL){
+        printf("\nError");
+        return NULL;
+    }else{
+        if(root->value == value){
+            printf("value found: %d",root->value);
+            return root;
+        }else{
+            if(root->value > value){
+                findElement(root->left,value);
+            }else{
+                findElement(root->right,value);
+            }
+        }
+    }
 }
 
 // Função para atualizar a altura da árvore
 void updateHeight(Node* root){
+    while(root != NULL){
+        root->height = max(height(root->left), height(root->right)) + 1;
+    }
+}
 
+// Função auxiliar para o balanceamento da árvore
+Node* getBalance(Node* root){
+    // fator de balanceamento: (tamanho da árvore da esquerda - tamanho da árvore da direita)
+    if(root == NULL){
+        printf("\nTree whitout sub tree's");
+    }
+    return height(root->left) - height(root->right) ;
 }
 
 // Função que vai balancear a árvore
 Node* balanceTree(Node* root){
-
+    
 }
 
 // Função para fazer a rotação para direita
@@ -49,11 +107,6 @@ Node* rotateLeft(Node* root){
 
 // Função que vai inserir elemento na árvore
 void insertElement(Node** root,int value){
-    // Questões a se considerar:
-    // Preciso implementar nesta função algum meio de
-    // auto-balancear a árvore, o que deve tornar essa função
-    // mais complexa do que a BST.
-    
     // Adicionando o primeiro valor, que vai ser a raiz
     if(*root == NULL){
         *root = createNode(value);

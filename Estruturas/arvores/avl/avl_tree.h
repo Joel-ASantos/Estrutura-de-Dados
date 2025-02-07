@@ -11,6 +11,7 @@ Node* createNode(int value);
 Node* balanceTree(Node* root);
 Node* rotateRight(Node* root);
 Node* rotateLeft(Node* root);
+Node* find_Min_Value_IN_right_subtree(Node* root);
 Node* deleteElement(Node* root,int value);
 Node* findElement(Node* root,int value);
 void insertElement(Node** root,int value);
