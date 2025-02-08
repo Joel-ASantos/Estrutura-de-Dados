@@ -90,19 +90,41 @@ Node* getBalance(Node* root){
     return height(root->left) - height(root->right) ;
 }
 
-// Função que vai balancear a árvore
-Node* balanceTree(Node* root){
-    
-}
-
 // Função para fazer a rotação para direita
 Node* rotateRight(Node* root){
-
+    // Passo 1: Identificar os nós envolvidos
+    Node* x = root->left;    // x é o filho à esquerda de root
+    Node* T2 = x->right;     // T2 é a subárvore à direita de x
+ 
+    // Passo 2: Realizar a rotação
+    x->right = root;         // root se torna o filho à direita de x
+    root->left = T2;         // T2 se torna o filho à esquerda de root
+ 
+    // Passo 3: Atualizar as alturas
+    root->height = 1 + max(height(root->left), height(root->right));
+    x->height = 1 + max(height(x->left), height(x->right));
+ 
+    // Passo 4: Retornar a nova raiz da subárvore
+    return x;
 }
 
 // Função para fazer a rotação para esquerda
 Node* rotateLeft(Node* root){
+    Node* y = root->right;
+    Node* T2 = y->left;
+ 
+    y->left = root;
+    root->right = T2;
+ 
+    root->height = 1 + max(height(root->left), height(root->right));
+    y->height = 1 + max(height(y->left), height(y->right));
+ 
+    return y;
+}
 
+// Função que vai balancear a árvore
+Node* balanceTree(Node* root){
+    
 }
 
 // Função que vai inserir elemento na árvore
@@ -124,6 +146,6 @@ void printALV_Tree(Node* root){
     if(root != NULL){
         printf("%d\t", root->right);
         printALV_Tree(root);
-        printf("%d \t",root->left);
+        printf("%d\t", root->left);
     }
 }
