@@ -51,6 +51,9 @@ Node* deleteElement(Node* root,int value){
         Node* temp = find_Min_Value_IN_right_subtree(root->right);
         root->value = temp->value;
         root->right = delete(root->right,temp->value);
+
+        // Atualizando a altura da árvore
+        updateHeight(root->right);
     }
     return root;
 }
@@ -93,12 +96,12 @@ Node* getBalance(Node* root){
 // Função para fazer a rotação para direita
 Node* rotateRight(Node* root){
     // Passo 1: Identificar os nós envolvidos
-    Node* x = root->left;    // x é o filho à esquerda de root
-    Node* T2 = x->right;     // T2 é a subárvore à direita de x
+    Node* x = root->left; // x é o filho à esquerda de root
+    Node* T2 = x->right;  // T2 é a subárvore à direita de x
  
     // Passo 2: Realizar a rotação
-    x->right = root;         // root se torna o filho à direita de x
-    root->left = T2;         // T2 se torna o filho à esquerda de root
+    x->right = root; // root se torna o filho à direita de x
+    root->left = T2; // T2 se torna o filho à esquerda de root
  
     // Passo 3: Atualizar as alturas
     root->height = 1 + max(height(root->left), height(root->right));
@@ -124,6 +127,11 @@ Node* rotateLeft(Node* root){
 
 // Função que vai balancear a árvore
 Node* balanceTree(Node* root){
+    int balanceFactor = getBalance(root);
+
+    // O vator de balanceamento pode variar entre -1 a 1
+    // Caso passe disso a árvore não está balanceada. 
+    
     
 }
 
@@ -139,6 +147,9 @@ void insertElement(Node** root,int value){
     }else if(value < (*root)->value){
         insertElement(&((*root)->left),value);
     }
+
+    // Atualizando a altura da árvore
+    updateHeight(root);
 }
 
 // Função que vai imprimir a árvore
