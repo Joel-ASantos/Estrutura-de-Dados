@@ -15,5 +15,23 @@
 
 int main(int* argc, char argv[]){
 
+    // Criando a árvore
+    Node* root = NULL;
+
+    // Inserindo valores
+    insertElement(&root,100);
+    insertElement(&root,150);
+    insertElement(&root,78);
+    insertElement(&root,125);
+    insertElement(&root,160);
+    insertElement(&root,56);
+    insertElement(&root,89);
+    insertElement(&root,90);
+    insertElement(&root,95);
+    insertElement(&root,12);
+
+    // imprimindo a árvore
+    printALV_Tree(root);
+
     return 0;
 }
