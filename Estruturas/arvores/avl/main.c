@@ -13,24 +13,26 @@
 // onde a diferença do tamanho das sub-árvores não pode ser maior que um nó, mantendo
 // a árvore balanceada.
 
-int main(int* argc, char argv[]){
+int main(int argc, char* argv[]){
 
     // Criando a árvore
     Node* root = NULL;
 
     // Inserindo valores
-    insertElement(&root,100);
-    insertElement(&root,150);
-    insertElement(&root,78);
-    insertElement(&root,125);
-    insertElement(&root,160);
-    insertElement(&root,56);
-    insertElement(&root,89);
-    insertElement(&root,90);
-    insertElement(&root,95);
-    insertElement(&root,12);
+    insertElement(&root, 10);
+    insertElement(&root, 5);
+    insertElement(&root, 15);
+    insertElement(&root, 3);
+    insertElement(&root, 8);
+    insertElement(&root, 2);
 
-    // imprimindo a árvore
+    // Deletando elementos
+    printf("Tree before remove:\t");
+    printALV_Tree(root);
+    root = deleteElement(root,15);
+
+    // Árvore após a remoção
+    printf("\nTree after Remove:\t");
     printALV_Tree(root);
 
     return 0;
